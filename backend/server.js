@@ -3,6 +3,7 @@ import { connectDB } from "./config/db.js";
 import expenseRoutes from "./routes/expenseRoute.js";
 
 const app = express();
+app.use(express.json());
 
 connectDB();
 
