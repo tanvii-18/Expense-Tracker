@@ -29,7 +29,8 @@ const expenseSchema = new mongoose.Schema(
     },
     expenseType: {
       type: String,
-      enum: ["Needs", "Wants", "Savings", "Investment", "unnecessary"],
+      enum: ["Needs", "Wants", "Savings", "Investment", "unnecessary"]
+        .toLowerCase,
     },
   },
   { timestamps: true },
