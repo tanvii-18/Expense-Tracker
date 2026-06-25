@@ -1,10 +1,17 @@
 import express from "express";
-import { addExpense, readExpenses } from "../controllers/expenseController.js";
+import {
+  addExpense,
+  readExpenses,
+  updateExpense,
+} from "../controllers/expenseController.js";
+import { checkExpenseData } from "../Middleware/expenseMiddleware.js";
 
 const expenseRoutes = express.Router();
 
 expenseRoutes.get("/getExpense", readExpenses);
 
-expenseRoutes.post("/addExpense", addExpense);
+expenseRoutes.post("/addExpense", checkExpenseData, addExpense);
+
+expenseRoutes.put("/editExpense/:id", checkExpenseData, updateExpense);
 
 export default expenseRoutes;
