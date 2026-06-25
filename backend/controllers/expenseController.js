@@ -1,18 +1,26 @@
 import { expenseCollection } from "../models/expenseModel.js";
 
 export const addExpense = async (req, res) => {
+  const { expenseName, expenseAmt, category, expenseType, description } =
+    req.body;
   try {
-    const expenses = await expenseCollection.create(req.body);
+    if (!expenseName || !expenseAmt || !category) {
+      return res.status(400).json({
+        status: false,
+        message:
+          "Informations like Name of Expense, Amount & Category are Require!",
+      });
+    }
+    const expenses = await expenseCollection.create({
+      expenseName,
+      expenseAmt,
+      category,
+      expenseType,
+      description,
+    });
 
     console.log(expenses);
 
-    // if (!expenseName || !expenseAmt || !category) {
-    //   return res.status(400).json({
-    //     status: false,
-    //     message:
-    //       "Informations like Name of Expense, Amount & Category are Require!",
-    //   });
-    // }
     return res
       .status(200)
       .json({ status: true, message: "Expense added successfully!", expenses });
