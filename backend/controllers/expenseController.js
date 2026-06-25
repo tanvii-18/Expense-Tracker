@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { expenseCollection } from "../models/expenseModel.js";
 
 export const addExpense = async (req, res) => {
@@ -46,12 +47,16 @@ export const readExpenses = async (req, res) => {
 export const updateExpense = async (req, res) => {
   const { id } = req.params;
   try {
-    if (!id) {
+    const data = await expenseCollection.findByIdAndUpdate(
+      { _id: id },
+      { $set: req.body },
+    );
+
+    if (!data) {
       return res
-        .status(409)
+        .status(404)
         .json({ status: false, message: "Expense Not Found!" });
     }
-    await expenseCollection.findByIdAndUpdate({ _id: id }, { $set: req.body });
 
     return res
       .status(200)
@@ -61,5 +66,23 @@ export const updateExpense = async (req, res) => {
     return res
       .status(500)
       .json({ status: false, message: "Can't Update Expense" });
+  }
+};
+
+export const deleteExpense = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await expenseCollection.findByIdAndDelete(id);
+    if (!data) {
+      return res.status(404).json({ status: false, message: "data not found" });
+    }
+    return res
+      .status(200)
+      .json({ status: true, message: "deleted successfully" });
+  } catch (error) {
+    console.log(error.message);
+    return res
+      .status(500)
+      .json({ status: false, message: "Can't delete Expense" });
   }
 };

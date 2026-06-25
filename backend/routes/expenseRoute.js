@@ -1,6 +1,7 @@
 import express from "express";
 import {
   addExpense,
+  deleteExpense,
   readExpenses,
   updateExpense,
 } from "../controllers/expenseController.js";
@@ -13,5 +14,7 @@ expenseRoutes.get("/getExpense", readExpenses);
 expenseRoutes.post("/addExpense", checkExpenseData, addExpense);
 
 expenseRoutes.put("/editExpense/:id", checkExpenseData, updateExpense);
+
+expenseRoutes.delete("/deleteExpense/:id", deleteExpense);
 
 export default expenseRoutes;
