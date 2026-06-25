@@ -23,7 +23,7 @@ export const addExpense = async (req, res) => {
 
     return res
       .status(200)
-      .json({ status: true, message: "Expense added successfully!", expenses });
+      .json({ status: true, message: "Expense added successfully!" });
   } catch (error) {
     res.status(500).json({
       status: false,
@@ -32,5 +32,20 @@ export const addExpense = async (req, res) => {
     });
 
     console.log(error.message);
+  }
+};
+
+export const readExpenses = async (req, res) => {
+  try {
+    const allData = await expenseCollection.find({});
+
+    return res
+      .status(200)
+      .json({ status: true, message: "find data successfully", allData });
+  } catch (error) {
+    console.log(error.message);
+    return res
+      .status(500)
+      .json({ status: false, message: "No Expenses Found!" });
   }
 };
