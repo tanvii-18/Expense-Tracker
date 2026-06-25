@@ -44,6 +44,24 @@ export const readExpenses = async (req, res) => {
   }
 };
 
+export const findByCategory = async (req, res) => {
+  const { category } = req.params;
+  try {
+    const data = await expenseCollection.find({ category });
+
+    // console.log(req.params.id);
+
+    return res
+      .status(200)
+      .json({ status: true, message: "find data successfully", data });
+  } catch (error) {
+    console.log(error.message);
+    return res
+      .status(500)
+      .json({ status: false, message: "No Expense Found!" });
+  }
+};
+
 export const updateExpense = async (req, res) => {
   const { id } = req.params;
   try {
@@ -72,7 +90,7 @@ export const updateExpense = async (req, res) => {
 export const deleteExpense = async (req, res) => {
   const { id } = req.params;
   try {
-    const data = await expenseCollection.findByIdAndDelete(id);
+    const data = await expenseCollection.findByIdAndDelete({ _id: id });
     if (!data) {
       return res.status(404).json({ status: false, message: "data not found" });
     }

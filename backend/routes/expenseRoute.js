@@ -2,6 +2,7 @@ import express from "express";
 import {
   addExpense,
   deleteExpense,
+  findByCategory,
   readExpenses,
   updateExpense,
 } from "../controllers/expenseController.js";
@@ -10,6 +11,7 @@ import { checkExpenseData } from "../Middleware/expenseMiddleware.js";
 const expenseRoutes = express.Router();
 
 expenseRoutes.get("/getExpense", readExpenses);
+expenseRoutes.get("/findOneExpense/:id", findByCategory);
 
 expenseRoutes.post("/addExpense", checkExpenseData, addExpense);
 
