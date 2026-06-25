@@ -11,7 +11,7 @@ import { checkExpenseData } from "../Middleware/expenseMiddleware.js";
 const expenseRoutes = express.Router();
 
 expenseRoutes.get("/getExpense", readExpenses);
-expenseRoutes.get("/findOneExpense/:id", findByCategory);
+expenseRoutes.get("/category", findByCategory);
 
 expenseRoutes.post("/addExpense", checkExpenseData, addExpense);
 

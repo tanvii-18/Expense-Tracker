@@ -46,6 +46,8 @@ export const readExpenses = async (req, res) => {
 
 export const findByCategory = async (req, res) => {
   const { category } = req.params;
+  console.log(req.params);
+  console.log(req.query);
   try {
     const data = await expenseCollection.find({ category });
 
