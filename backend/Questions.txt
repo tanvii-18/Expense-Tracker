@@ -1,0 +1,3 @@
+? find product -> search system that works for find product by product category & expense type
+          problems -> get result for specific enum, cant find expense with spaced words,\
+          cant find expense cause of upper & lower stric case
